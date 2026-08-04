@@ -25,7 +25,10 @@ jobs:
         with:
           node-version: 22 # Utiliser Node 22 (LTS stable) pour éviter les warnings Node 24
           # cache: "pnpm"
-
+      - name: Enable Corepack & Prepare pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
 

@@ -29,7 +29,10 @@ jobs:
           node-version: 22
           # cache: "pnpm"
           # cache-dependency-path: "pnpm-lock.yaml" # <--- Ajouté pour fixer l'erreur de store path
-
+      - name: Enable Corepack & Prepare pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
 
