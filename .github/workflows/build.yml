@@ -42,7 +42,7 @@ jobs:
         with:
           targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
-      # Correctif Ubuntu : libwebkit2gtk-4.1-dev pour Tauri v2
+      # Dépendances Linux pour Tauri v2
       - name: Install Linux Build Dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -52,8 +52,8 @@ jobs:
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
 
-      # 1. Build Standard / Online (Linux, macOS, Windows Online Bootstrapper)
-      - name: Build Online & Standard Installers
+      # 1. Build Standard / Online (Linux, macOS, Windows Online)
+      - name: Build Online Installers
         uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,9 +65,9 @@ jobs:
           prerelease: false
           args: >-
             ${{ matrix.os == 'macos-latest' && '--target universal-apple-darwin' || '' }}
-            ${{ matrix.os == 'windows-latest' && '--config ''{"bundle":{"windows":{"webviewInstallMode":{"type":"downloadBootstrapper"}}}}''' || '' }}
+            ${{ matrix.os == 'windows-latest' && '--config ''{"productName":"Tchik-Online","bundle":{"windows":{"webviewInstallMode":{"type":"downloadBootstrapper"}}}}''' || '' }}
 
-      # 2. Build Offline spécifique pour Windows (Webview2 embarqué)
+      # 2. Build Offline spécifique pour Windows (avec suffixe Tchik-Offline)
       - name: Build Windows Offline Installer
         if: matrix.os == 'windows-latest'
         uses: tauri-apps/tauri-action@v1
@@ -79,4 +79,4 @@ jobs:
           releaseBody: "See the assets to download this version and install."
           releaseDraft: false
           prerelease: false
-          args: '--config ''{"bundle":{"windows":{"webviewInstallMode":{"type":"offlineInstaller"}}}}'''
+          args: '--config ''{"productName":"Tchik-Offline","bundle":{"windows":{"webviewInstallMode":{"type":"offlineInstaller"}}}}'''
