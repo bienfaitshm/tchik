@@ -23,12 +23,13 @@ jobs:
       - name: Initialize Node.js Runtime
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Utiliser Node 22 (LTS stable) pour éviter les warnings Node 24
-          # cache: "pnpm"
+          node-version: 22
+
       - name: Enable Corepack & Prepare pnpm
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@9 --activate
+
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
 
