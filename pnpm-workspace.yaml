@@ -1,2 +1,8 @@
-allowBuilds:
-  esbuild: false
+packages:
+  # Application / Paquet racine
+  - '.'
+  # Inclut tous les paquets dans le dossier packages/ s'il existe
+  - 'packages/*'
+  # Exclut explicitement les tests et la build Tauri de la résolution workspace
+  - '!**/test/**'
+  # - '!src-tauri'
