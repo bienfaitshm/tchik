@@ -25,7 +25,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "pnpm tauri set-version ${nextRelease.version}"
+        "prepareCmd": "node -e \"const fs=require('fs'); const file='src-tauri/tauri.conf.json'; const conf=JSON.parse(fs.readFileSync(file)); conf.version='${nextRelease.version}'; fs.writeFileSync(file, JSON.stringify(conf, null, 2));\""
       }
     ],
     [
