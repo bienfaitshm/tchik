@@ -1,0 +1,79 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 1. Ajout de l'installation de pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "pnpm" # 2. Remplacement du cache yarn par pnpm
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Linters & Tests
+        # Exemple de commandes standards à décommenter/adapter :
+        # run: pnpm lint && pnpm test
+        run: echo "Exécutez vos scripts de tests ici"
+
+  check-lockfiles:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check changed files
+        id: files
+        run: |
+          # Liste les fichiers modifiés dans la PR
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+
+          # Alerte si pnpm-lock.yaml est modifié manuellement OU si des lockfiles parasites (npm/yarn) sont injectés
+          if echo "$CHANGED_FILES" | grep -E 'package-lock.json|yarn.lock|pnpm-lock.yaml'; then
+            echo "lockfile_changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Filter & Comment Safe Bot Changes
+        if: steps.files.outputs.lockfile_changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prActor = context.payload.pull_request.user.login;
+
+            // On autorise uniquement le bot (ex: pour le bump automatique de version lors d'une release)
+            if (prActor === 'github-actions[bot]') {
+              console.log("Modification par le bot autorisée.");
+              return;
+            }
+
+            // 3. Mise à jour du message d'alerte pour pnpm
+            let msg = "⚠️ **Alerte Intégrité** : Le fichier `pnpm-lock.yaml` ne doit pas être modifié manuellement dans les Pull Requests. De plus, assurez-vous de ne pas avoir introduit de lockfile parasite (`package-lock.json` ou `yarn.lock`).";
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.number,
+              body: msg
+            });
+            core.setFailed("Intégrité du lockfile compromise par un utilisateur.");

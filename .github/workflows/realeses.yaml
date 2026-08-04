@@ -1,0 +1,42 @@
+name: Automated Release
+
+on:
+  push:
+    branches: [main, develop]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with: { node-version: "lts/*", cache: "pnpm" }
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Execute Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger Build Workflow
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Le V (v1.0.0) doit correspondre au format attendu par la configuration de vos tags
+          inputs: '{ "tag": "v${{ steps.semantic.outputs.new_release_version }}" }'

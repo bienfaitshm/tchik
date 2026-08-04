@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Tchik",
+  "version": "0.1.0",
+  "identifier": "com.bienfaitshm.tchik",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Tchik",
+        "fullscreen": false,
+        "width": 900,
+        "height": 800,
+        "minWidth": 870,
+        "minHeight": 800
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "dmg", "appimage", "deb"],
+    "icon": ["icons/icon.icns", "icons/icon.png", "icons/icon.ico"],
+
+    "category": "Education",
+    "publisher": "Bienfait Shomari",
+    "shortDescription": "Gestionnaire Tchik pour l'éducation",
+
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      },
+      "nsis": {
+        "installMode": "perMachine",
+        "displayLanguageSelector": true
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/bienfaitshm/tchik/releases/latest/download/latest.json"
+      ],
+      "pubkey": "CLÉ_PUBLIQUE_TAURI_UPDATER_À_GÉNÉRER"
+    }
+  }
+}
