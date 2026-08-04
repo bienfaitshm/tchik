@@ -1,13 +1,18 @@
 # Tchik
 
-[![LICENSE](https://img.shields.io/github/license/bienfaitshm/TchikDesktop)](LICENSE)
-[![Release](https://img.shields.io/github/release/bienfaitshm/TchikDesktop.svg)](https://github.com/bienfaitshm/TchikDesktop/releases)
-[![Download](https://img.shields.io/github/downloads/bienfaitshm/TchikDesktop/total)](https://github.com/bienfaitshm/TchikDesktop/releases)
-[![STARS](https://img.shields.io/github/stars/bienfaitshm/TchikDesktop)](https://github.com/bienfaitshm/TchikDesktop/)
+[![CI Build](https://github.com/bienfaitshm/tchik/actions/workflows/build.yml/badge.svg)](https://github.com/bienfaitshm/tchik/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/bienfaitshm/tchik?color=blue&label=version)](https://github.com/bienfaitshm/tchik/releases/latest)
+[![LICENSE](https://img.shields.io/github/license/bienfaitshm/tchik)](LICENSE)
+[![Download](https://img.shields.io/github/downloads/bienfaitshm/tchik/total?color=green)](https://github.com/bienfaitshm/tchik/releases)
+[![STARS](https://img.shields.io/github/stars/bienfaitshm/tchik)](https://github.com/bienfaitshm/tchik/stargazers)
 
-<img align="right" width="110" src="https://raw.githubusercontent.com/bienfaitshm/TchikDesktop/refs/heads/main/resources/icon.png">
+<img align="right" width="110" src="https://github.com/bienfaitshm/tchik/blob/main/src-tauri/icons/icon.png?raw=true" alt="Tchik Logo">
 
-**Tchik** est la solution open source qui réinvente la gestion administrative scolaire. Conçue pour les non-experts, elle automatise les tâches chronophages comme la préparation des examens, la génération des listes d'émargement et la création de documents officiels. Sécurisée en local et sans dépendance internet, Tchik réduit les erreurs, simplifie votre quotidien et vous offre une liberté totale sur vos données. Gagnez en efficacité, sans formation technique.
+**Tchik** est la solution desktop open source performante et légère qui réinvente la gestion administrative scolaire. Propulsée par **Tauri v2**, elle automatise les tâches chronophages comme la préparation des examens, la génération des listes d'émargement et la création de documents officiels. 
+
+Sécurisée en local et sans dépendance internet, Tchik réduit les erreurs, élimine le superflu, simplifie votre quotidien et vous offre une souveraineté totale sur vos données.
+
+---
 
 ## Téléchargement
 
@@ -15,68 +20,49 @@ Téléchargez la dernière version stable de **Tchik** pour votre système d'exp
 
 | Plateforme | Format | Lien de téléchargement direct |
 | :--- | :--- | :--- |
-| **Windows** | Installeur (`.exe`) | [Télécharger pour Windows (64-bit)](https://github.com/bienfaitshm/TchikDesktop/releases/latest/download/TchikDesktop_Installer_Windows_setup.exe) |
-| **macOS** | Image Disque (`.dmg`) | [Télécharger pour macOS (Intel/Apple Silicon)](https://github.com/bienfaitshm/TchikDesktop/releases/latest/download/TchikDesktop_Installer_MacOs.dmg) |
-| **Linux** | Paquet Debian (`.deb`) | [Télécharger pour Ubuntu / Debian](https://github.com/bienfaitshm/TchikDesktop/releases/latest/download/TchikDesktop_Installer_Linux.deb) |
-| **Linux** | Standalone (`.AppImage`) | [Télécharger au format AppImage](https://github.com/bienfaitshm/TchikDesktop/releases/latest/download/TchikDesktop_Installer_Linux.AppImage) |
+| **Windows** | Installeur (`.exe` / `.msi`) | [Télécharger pour Windows (x64)](https://github.com/bienfaitshm/tchik/releases/latest/download/tchik_x64-setup.exe) |
+| **macOS** | Image Disque (`.dmg`) | [Télécharger pour macOS (Universal / Apple Silicon / Intel)](https://github.com/bienfaitshm/tchik/releases/latest/download/tchik.dmg) |
+| **Linux** | AppImage (`.AppImage`) | [Télécharger au format AppImage](https://github.com/bienfaitshm/tchik/releases/latest/download/tchik_amd64.AppImage) |
+| **Linux** | Paquet Debian (`.deb`) | [Télécharger pour Ubuntu / Debian](https://github.com/bienfaitshm/tchik/releases/latest/download/tchik_amd64.deb) |
+
+> 💡 **Mises à jour automatiques :** Grâce au module d'auto-update Tauri, l'application vous notifiera directement lorsqu'une nouvelle version sera publiée sur GitHub.
+
+### Historique des releases
+
+Vous pouvez consulter les notes de version (*changelogs*), les sommes de contrôle (checksums SHA256) ou télécharger des architectures spécifiques depuis la page des [GitHub Releases](https://github.com/bienfaitshm/tchik/releases).
 
 ---
 
-### Autres versions
-
-Vous pouvez également parcourir l'historique complet des versions, consulter les notes de mise à jour (*changelogs*) ou télécharger des architectures spécifiques directement depuis la page des [GitHub Releases](https://github.com/bienfaitshm/TchikDesktop/releases).
-
 ## Pourquoi choisir Tchik pour votre établissement ?
 
-* **Liberté Totale (Open Source) :** Aucun frais de licence, aucun verrouillage. Vous possédez votre outil et vos données.
-* **Fiabilité "Hors Ligne" :** Travaillez sereinement sans dépendre d'une connexion internet. Vos données restent locales, sécurisées et accessibles à tout moment sur votre machine.
-* **Simplicité sans expertise :** Conçu pour les gestionnaires, pas pour les ingénieurs. Obtenez des documents professionnels instantanément, sans formule complexe ni formation technique.
-* **Évolutivité sur-mesure :** Une architecture ouverte qui s'intègre à votre écosystème existant et permet à vos équipes IT d'ajouter des fonctionnalités spécifiques à vos besoins.
+* **Performances & Sobriété :** Conçue sur le moteur Tauri (Rust + Webview2/WebKit), Tchik consomme jusqu'à 10x moins de mémoire RAM qu'une application Electron classique.
+* **Liberté Totale (Open Source) :** Aucun frais de licence, aucun abonnement caché. Vous possédez votre outil et vos données.
+* **Fiabilité Hors Ligne :** Travaillez sereinement sans dépendre d'une connexion internet. Vos données restent stockées localement en toute sécurité sur votre machine.
+* **Simplicité sans expertise :** Interface intuitive conçue pour les gestionnaires et secrétaires d'établissements. Obtenez des documents officiels instantanément.
+
+---
 
 ## Les piliers de votre productivité
 
 | Fonctionnalité | Ce que vous y gagnez |
 | --- | --- |
-| **Gestion élèves** | Une base de données claire, centralisée et facile à mettre à jour. |
-| **Moteur d'examens** | Automatisation du placement des élèves. Zéro conflit, planification optimisée. |
-| **Génération doc** | Listes, convocations et plans générés automatiquement en un clic. |
-| **Interopérabilité** | Import/Export fluide pour communiquer avec vos autres logiciels. |
+| **Gestion des élèves** | Une base de données claire, centralisée et facile à mettre à jour. |
+| **Moteur d'examens** | Placement et répartition automatique des élèves sans conflits d'horaires ou de salles. |
+| **Génération de documents** | Listes d'émargement, convocations, cartes d'élèves et plans de salles en un clic. |
+| **Import / Export** | Échanges de données fluides au format CSV/Excel. |
 
 ---
 
-## Un mot pour les équipes IT
+## Guide pour les Développeurs (Contribuer)
 
-Tchik est conçu pour durer. Grâce à sa structure modulaire et son fonctionnement local, il offre un terrain de jeu robuste et sécurisé pour vos administrateurs. Développez vos propres extensions et adaptez l'outil sans les contraintes d'un système fermé.
+### Environnement recommandé
 
-# An Electron application with React and TypeScript
+* **IDE :** [VS Code](https://code.visualstudio.com/) + extensions [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+* **Préréquis système :** Node.js 22+, Rust, pnpm (`corepack enable`).
 
-## Recommended IDE Setup
+### Configuration du projet
 
-* [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-## Project Setup
-
-### Install
-
-```bash
-npm install
-```
-
-### Development
-
-```bash
-npm run dev
-```
-
-### Build
-
-```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
-```
+1. **Cloner le dépôt :**
+   ```bash
+   git clone [https://github.com/bienfaitshm/tchik.git](https://github.com/bienfaitshm/tchik.git)
+   cd tchik

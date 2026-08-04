@@ -24,8 +24,7 @@ jobs:
     steps:
       - name: Checkout Source Tree
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -37,8 +36,7 @@ jobs:
       - name: Initialize Node.js Runtime
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Utiliser Node 22 (LTS stable)
-          # cache: "pnpm"
+          node-version: 22
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -54,7 +52,8 @@ jobs:
       - name: Enable Corepack & Prepare pnpm
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@9 --activate
+
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
 
