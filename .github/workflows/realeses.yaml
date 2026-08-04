@@ -26,8 +26,9 @@ jobs:
       - name: Initialize Node.js Runtime
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Utiliser Node 22 (LTS stable)
+          node-version: 22
           cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml" # <--- Ajouté pour fixer l'erreur de store path
 
       - name: Install Project Dependencies
         run: pnpm install --frozen-lockfile
@@ -44,5 +45,4 @@ jobs:
         with:
           workflow: build.yml
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Le V (v1.0.0) doit correspondre au format attendu par la configuration de vos tags
           inputs: '{ "tag": "v${{ steps.semantic.outputs.new_release_version }}" }'
